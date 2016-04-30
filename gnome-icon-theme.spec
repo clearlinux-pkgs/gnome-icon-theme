@@ -4,7 +4,7 @@
 #
 Name     : gnome-icon-theme
 Version  : 2.31.0
-Release  : 5
+Release  : 6
 URL      : http://ftp.gnome.org/pub/GNOME/sources/gnome-icon-theme/2.31/gnome-icon-theme-2.31.0.tar.bz2
 Source0  : http://ftp.gnome.org/pub/GNOME/sources/gnome-icon-theme/2.31/gnome-icon-theme-2.31.0.tar.bz2
 Summary  : A collection of icons used as the basis for GNOME themes
