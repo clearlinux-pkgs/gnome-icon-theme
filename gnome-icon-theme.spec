@@ -4,7 +4,7 @@
 #
 Name     : gnome-icon-theme
 Version  : 2.31.0
-Release  : 6
+Release  : 7
 URL      : http://ftp.gnome.org/pub/GNOME/sources/gnome-icon-theme/2.31/gnome-icon-theme-2.31.0.tar.bz2
 Source0  : http://ftp.gnome.org/pub/GNOME/sources/gnome-icon-theme/2.31/gnome-icon-theme-2.31.0.tar.bz2
 Summary  : A collection of icons used as the basis for GNOME themes
@@ -34,6 +34,7 @@ data components for the gnome-icon-theme package.
 Summary: dev components for the gnome-icon-theme package.
 Group: Development
 Requires: gnome-icon-theme-data
+Provides: gnome-icon-theme-devel
 
 %description dev
 dev components for the gnome-icon-theme package.
@@ -43,10 +44,16 @@ dev components for the gnome-icon-theme package.
 %setup -q -n gnome-icon-theme-2.31.0
 
 %build
+export LANG=C
+export SOURCE_DATE_EPOCH=1483126032
 %configure --disable-static
-make V=1 %{?_smp_mflags}
+make V=1  %{?_smp_mflags}
 
 %check
+export LANG=C
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
@@ -5707,4 +5714,4 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/pkgconfig/gnome-icon-theme.pc
