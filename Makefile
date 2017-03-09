@@ -1,5 +1,5 @@
 PKG_NAME := gnome-icon-theme
-URL := http://ftp.gnome.org/pub/GNOME/sources/gnome-icon-theme/2.31/gnome-icon-theme-2.31.0.tar.bz2
+URL := https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 
 
 include ../common/Makefile.common
