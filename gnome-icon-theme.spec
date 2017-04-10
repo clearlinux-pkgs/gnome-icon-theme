@@ -4,12 +4,12 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 8
+Release  : 9
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Summary  : A collection of icons used as the basis for GNOME themes
 Group    : Development/Tools
-License  : CC-BY-SA-3.0 GPL-3.0 LGPL-3.0
+License  : CC-BY-SA-3.0 LGPL-3.0
 Requires: gnome-icon-theme-data
 BuildRequires : gettext
 BuildRequires : intltool
@@ -46,7 +46,7 @@ dev components for the gnome-icon-theme package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1489093950
+export SOURCE_DATE_EPOCH=1491837123
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -58,9 +58,12 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1489093950
+export SOURCE_DATE_EPOCH=1491837123
 rm -rf %{buildroot}
 %make_install
+## make_install_append content
+gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -5989,6 +5992,7 @@ rm -rf %{buildroot}
 /usr/share/icons/gnome/8x8/emblems/emblem-symbolic-link.png
 /usr/share/icons/gnome/8x8/emblems/emblem-synchronizing.png
 /usr/share/icons/gnome/8x8/emblems/emblem-unreadable.png
+/usr/share/icons/gnome/icon-theme.cache
 /usr/share/icons/gnome/index.theme
 
 %files dev
