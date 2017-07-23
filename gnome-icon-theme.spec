@@ -4,7 +4,7 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 10
+Release  : 11
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Summary  : A collection of icons used as the basis for GNOME themes
@@ -45,8 +45,11 @@ dev components for the gnome-icon-theme package.
 %setup -q -n gnome-icon-theme-3.12.0
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1491837123
+export SOURCE_DATE_EPOCH=1500836695
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -54,11 +57,11 @@ make V=1  %{?_smp_mflags}
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1491837123
+export SOURCE_DATE_EPOCH=1500836695
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
