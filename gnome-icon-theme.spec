@@ -4,7 +4,7 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 13
+Release  : 14
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Summary  : A collection of icons used as the basis for GNOME themes
@@ -49,9 +49,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1500836695
+export SOURCE_DATE_EPOCH=1528217203
 %configure --disable-static
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
@@ -61,7 +61,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1500836695
+export SOURCE_DATE_EPOCH=1528217203
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
@@ -73,6 +73,7 @@ gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
 
 %files data
 %defattr(-,root,root,-)
+%exclude /usr/share/icons/gnome/icon-theme.cache
 /usr/share/icons/gnome/16x16/actions/add.png
 /usr/share/icons/gnome/16x16/actions/address-book-new.png
 /usr/share/icons/gnome/16x16/actions/application-exit.png
@@ -5995,7 +5996,6 @@ gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
 /usr/share/icons/gnome/8x8/emblems/emblem-symbolic-link.png
 /usr/share/icons/gnome/8x8/emblems/emblem-synchronizing.png
 /usr/share/icons/gnome/8x8/emblems/emblem-unreadable.png
-/usr/share/icons/gnome/icon-theme.cache
 /usr/share/icons/gnome/index.theme
 
 %files dev
