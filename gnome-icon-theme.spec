@@ -4,18 +4,19 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 15
+Release  : 16
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
-Summary  : A collection of icons used as the basis for GNOME themes
+Summary  : GNOME icon theme
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 LGPL-3.0
-Requires: gnome-icon-theme-data
+Requires: gnome-icon-theme-data = %{version}-%{release}
+Requires: gnome-icon-theme-license = %{version}-%{release}
+BuildRequires : buildreq-gnome
 BuildRequires : gettext
 BuildRequires : intltool
 BuildRequires : perl(XML::Parser)
 BuildRequires : perl-XML-Simple
-BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(icon-naming-utils)
 
 %description
@@ -34,11 +35,20 @@ data components for the gnome-icon-theme package.
 %package dev
 Summary: dev components for the gnome-icon-theme package.
 Group: Development
-Requires: gnome-icon-theme-data
-Provides: gnome-icon-theme-devel
+Requires: gnome-icon-theme-data = %{version}-%{release}
+Provides: gnome-icon-theme-devel = %{version}-%{release}
+Requires: gnome-icon-theme = %{version}-%{release}
 
 %description dev
 dev components for the gnome-icon-theme package.
+
+
+%package license
+Summary: license components for the gnome-icon-theme package.
+Group: Default
+
+%description license
+license components for the gnome-icon-theme package.
 
 
 %prep
@@ -49,7 +59,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1528217203
+export SOURCE_DATE_EPOCH=1556987840
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -61,12 +78,16 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1528217203
+export SOURCE_DATE_EPOCH=1556987840
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/gnome-icon-theme
+cp COPYING %{buildroot}/usr/share/package-licenses/gnome-icon-theme/COPYING
+cp COPYING_CCBYSA3 %{buildroot}/usr/share/package-licenses/gnome-icon-theme/COPYING_CCBYSA3
+cp COPYING_LGPL %{buildroot}/usr/share/package-licenses/gnome-icon-theme/COPYING_LGPL
 %make_install
-## make_install_append content
+## install_append content
 gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
-## make_install_append end
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -6001,3 +6022,9 @@ gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
 %files dev
 %defattr(-,root,root,-)
 /usr/lib64/pkgconfig/gnome-icon-theme.pc
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/gnome-icon-theme/COPYING
+/usr/share/package-licenses/gnome-icon-theme/COPYING_CCBYSA3
+/usr/share/package-licenses/gnome-icon-theme/COPYING_LGPL
