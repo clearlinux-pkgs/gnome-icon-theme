@@ -1,1 +1,4 @@
 gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
+# Need to be removed again, since the exclude removal occurs before
+# install_append...
+rm -f %{buildroot}/usr/share/icons/gnome/icon-theme.cache

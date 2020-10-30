@@ -4,10 +4,10 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 17
+Release  : 18
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
-Summary  : GNOME icon theme
+Summary  : A collection of icons used as the basis for GNOME themes
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 LGPL-3.0
 Requires: gnome-icon-theme-data = %{version}-%{release}
@@ -53,40 +53,47 @@ license components for the gnome-icon-theme package.
 
 %prep
 %setup -q -n gnome-icon-theme-3.12.0
+cd %{_builddir}/gnome-icon-theme-3.12.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557003607
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604094395
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1557003607
+export SOURCE_DATE_EPOCH=1604094395
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-icon-theme
-cp COPYING %{buildroot}/usr/share/package-licenses/gnome-icon-theme/COPYING
-cp COPYING_CCBYSA3 %{buildroot}/usr/share/package-licenses/gnome-icon-theme/COPYING_CCBYSA3
-cp COPYING_LGPL %{buildroot}/usr/share/package-licenses/gnome-icon-theme/COPYING_LGPL
+cp %{_builddir}/gnome-icon-theme-3.12.0/COPYING %{buildroot}/usr/share/package-licenses/gnome-icon-theme/415c1cf15bfc25cd8d4b39ce512bee4d353fe058
+cp %{_builddir}/gnome-icon-theme-3.12.0/COPYING_CCBYSA3 %{buildroot}/usr/share/package-licenses/gnome-icon-theme/900806db6414f1bb309ab7438c0a5bac52eb3c2b
+cp %{_builddir}/gnome-icon-theme-3.12.0/COPYING_LGPL %{buildroot}/usr/share/package-licenses/gnome-icon-theme/f45ee1c765646813b442ca58de72e20a64a7ddba
 %make_install
+## Remove excluded files
+rm -f %{buildroot}/usr/share/icons/gnome/icon-theme.cache
 ## install_append content
 gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
+# Need to be removed again, since the exclude removal occurs before
+# install_append...
+rm -f %{buildroot}/usr/share/icons/gnome/icon-theme.cache
 ## install_append end
 
 %files
@@ -94,7 +101,6 @@ gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
 
 %files data
 %defattr(-,root,root,-)
-%exclude /usr/share/icons/gnome/icon-theme.cache
 /usr/share/icons/gnome/16x16/actions/add.png
 /usr/share/icons/gnome/16x16/actions/address-book-new.png
 /usr/share/icons/gnome/16x16/actions/application-exit.png
@@ -6025,6 +6031,6 @@ gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gnome-icon-theme/COPYING
-/usr/share/package-licenses/gnome-icon-theme/COPYING_CCBYSA3
-/usr/share/package-licenses/gnome-icon-theme/COPYING_LGPL
+/usr/share/package-licenses/gnome-icon-theme/415c1cf15bfc25cd8d4b39ce512bee4d353fe058
+/usr/share/package-licenses/gnome-icon-theme/900806db6414f1bb309ab7438c0a5bac52eb3c2b
+/usr/share/package-licenses/gnome-icon-theme/f45ee1c765646813b442ca58de72e20a64a7ddba
