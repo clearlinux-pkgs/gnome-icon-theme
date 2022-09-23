@@ -4,7 +4,7 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 19
+Release  : 20
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Summary  : A collection of icons used as the basis for GNOME themes
