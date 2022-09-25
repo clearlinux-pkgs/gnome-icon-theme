@@ -4,7 +4,7 @@
 #
 Name     : gnome-icon-theme
 Version  : 3.12.0
-Release  : 20
+Release  : 21
 URL      : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 Summary  : A collection of icons used as the basis for GNOME themes
@@ -60,15 +60,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604094395
+export SOURCE_DATE_EPOCH=1664148772
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -80,15 +80,15 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1604094395
+export SOURCE_DATE_EPOCH=1664148772
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-icon-theme
-cp %{_builddir}/gnome-icon-theme-3.12.0/COPYING %{buildroot}/usr/share/package-licenses/gnome-icon-theme/415c1cf15bfc25cd8d4b39ce512bee4d353fe058
-cp %{_builddir}/gnome-icon-theme-3.12.0/COPYING_CCBYSA3 %{buildroot}/usr/share/package-licenses/gnome-icon-theme/900806db6414f1bb309ab7438c0a5bac52eb3c2b
-cp %{_builddir}/gnome-icon-theme-3.12.0/COPYING_LGPL %{buildroot}/usr/share/package-licenses/gnome-icon-theme/f45ee1c765646813b442ca58de72e20a64a7ddba
+cp %{_builddir}/gnome-icon-theme-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-icon-theme/415c1cf15bfc25cd8d4b39ce512bee4d353fe058 || :
+cp %{_builddir}/gnome-icon-theme-%{version}/COPYING_CCBYSA3 %{buildroot}/usr/share/package-licenses/gnome-icon-theme/900806db6414f1bb309ab7438c0a5bac52eb3c2b || :
+cp %{_builddir}/gnome-icon-theme-%{version}/COPYING_LGPL %{buildroot}/usr/share/package-licenses/gnome-icon-theme/f45ee1c765646813b442ca58de72e20a64a7ddba || :
 %make_install
 ## Remove excluded files
-rm -f %{buildroot}/usr/share/icons/gnome/icon-theme.cache
+rm -f %{buildroot}*/usr/share/icons/gnome/icon-theme.cache
 ## install_append content
 gtk-update-icon-cache %{buildroot}%{_datadir}/icons/gnome
 # Need to be removed again, since the exclude removal occurs before
